@@ -5,10 +5,8 @@
         router-link(:to="{name: 'user-list'}") Back to users list
       template(v-if="user")
         .p-edit-user__users
-          router-link.p-edit-user__users-link(
-          :to="{name: 'edit-user', params:{id: prevUser}}"
-          ) Edit {{getSiblingUserName(prevUser)}}
-          router-link.p-edit-user__users-link(:to="{name: 'edit-user', params:{id: nextUser}}") Edit {{getSiblingUserName(nextUser)}}
+          router-link.p-edit-user__users-link(:to="{name: 'edit-user', params:{id: prevUserId}}") Edit {{getSiblingUserName(prevUserId)}}
+          router-link.p-edit-user__users-link(:to="{name: 'edit-user', params:{id: nextUserId}}") Edit {{getSiblingUserName(nextUserId)}}
         .p-edit-user__form
           f-user(:user="user", @manage-user="editUser", @delete-user="deleteUser")
       .p-edit-user__loading(v-else) Loading...
@@ -32,10 +30,10 @@ export default {
     getUserId() {
       return +this.$route.params.id
     },
-    prevUser() {
+    prevUserId() {
       return this.getUserId - 1
     },
-    nextUser() {
+    nextUserId() {
       return this.getUserId + 1
     }
   },
