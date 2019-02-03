@@ -12,7 +12,7 @@
     tbody
       tr(v-for="(user,index) in users", :key="user.id")
         th
-          router-link(:to="'/edit-user/' + user.id") # {{ user.id }}
+          router-link(:to="{ name: 'edit-user', params: { id:user.id }}") # {{ user.id }}
         td {{ user.firstName + ' ' +  user.lastName}}
         td {{ user.company }}
         td {{ user.age }}
