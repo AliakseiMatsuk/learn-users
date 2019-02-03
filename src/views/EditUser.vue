@@ -2,19 +2,26 @@
   .p-edit-user
     .container
       .p-edit-user__back
-        router-link(to="/user-list") Back to users list
-      .p-edit-user__form(v-if="user")
-        f-user(:user="user", @manage-user="editUser", @delete-user="deleteUser")
+        router-link(:to="{name: 'user-list'}") Back to users list
+      template(v-if="user")
+        .p-edit-user__users
+          router-link.p-edit-user__users-link(
+          :to="{name: 'edit-user', params:{id: prevUser}}"
+          ) Edit {{getSiblingUserName(prevUser)}}
+          router-link.p-edit-user__users-link(:to="{name: 'edit-user', params:{id: nextUser}}") Edit {{getSiblingUserName(nextUser)}}
+        .p-edit-user__form
+          f-user(:user="user", @manage-user="editUser", @delete-user="deleteUser")
       .p-edit-user__loading(v-else) Loading...
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import fUser from '@/components/forms/f-user.vue'
 
 export default {
   name: 'EditUsers',
-  components: { fUser },
+  components: {
+    fUser: () => import('@/components/forms/f-user.vue')
+  },
   data() {
     return {
       user: null
@@ -24,6 +31,17 @@ export default {
     ...mapGetters('users', ['GET_USERS', 'GET_USER_BY_ID']),
     getUserId() {
       return +this.$route.params.id
+    },
+    prevUser() {
+      return this.getUserId - 1
+    },
+    nextUser() {
+      return this.getUserId + 1
+    }
+  },
+  watch: {
+    getUserId(id) {
+      this.user = this.GET_USER_BY_ID(id)
     }
   },
   created() {
@@ -33,6 +51,11 @@ export default {
   },
   methods: {
     ...mapActions('users', ['A_GET_USERS', 'A_EDIT_USER', 'A_DELETE_USER']),
+    getSiblingUserName(id) {
+      let { firstName, lastName } = this.GET_USER_BY_ID(id)
+
+      return firstName + ' ' + lastName
+    },
     editUser(user) {
       this.A_EDIT_USER(user).then(() => this.$router.push({ name: 'user-list' }))
     },
@@ -46,4 +69,11 @@ export default {
 <style scoped lang="stylus">
 .p-edit-user
   padding-bottom 50px
+  &__back
+    margin-bottom 20px
+  &__users
+    margin-bottom 20px
+    &-link
+      &:not(:last-child)
+        margin-right 20px
 </style>

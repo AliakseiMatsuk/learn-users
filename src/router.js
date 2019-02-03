@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Users from '@/views/Users.vue'
-import EditUser from '@/views/EditUser.vue'
-import AddUser from '@/views/AddUser.vue'
 
 import { TokenService } from '@/services/storage.service'
 
@@ -20,18 +17,18 @@ const router = new Router({
     {
       path: '/user-list',
       name: 'user-list',
-      component: Users,
+      component: () => import('@/views/Users.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/edit-user/:id',
       name: 'edit-user',
-      component: EditUser
+      component: () => import('@/views/EditUser.vue')
     },
     {
       path: '/add-user',
       name: 'add-user',
-      component: AddUser
+      component: () => import('@/views/AddUser.vue')
     }
   ]
 })

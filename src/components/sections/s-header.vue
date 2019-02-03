@@ -3,9 +3,9 @@
     .container
       nav.navbar.navbar-expand-lg.navbar-light.bg-light
         ul.navbar-nav
-          router-link.nav-item(to="/user-list" tag="li")
+          router-link.nav-item(:to="{name: 'user-list'}", tag="li")
             a.nav-link User list
-          router-link.nav-item(to="/add-user" tag="li")
+          router-link.nav-item(:to="{name: 'add-user'}", tag="li")
             a.nav-link Add user
 </template>
 

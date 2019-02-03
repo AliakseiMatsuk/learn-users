@@ -56,6 +56,11 @@ export default {
       return this.user
     }
   },
+  watch: {
+    user(user) {
+      this.currentUser = { ...user }
+    }
+  },
   created() {
     if (this.user) {
       this.currentUser = { ...this.user }

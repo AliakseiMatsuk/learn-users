@@ -1,1 +1,3 @@
 export const M_SET_USERS = 'M_SET_USERS'
+export const M_SET_CURRENT_PAGE = 'M_SET_CURRENT_PAGE'
+export const M_SET_USERS_PER_PAGE = 'M_SET_USERS_PER_PAGE'

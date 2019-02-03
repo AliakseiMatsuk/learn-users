@@ -1,18 +1,6 @@
 {
   "users": [
     {
-      "id": 2,
-      "isActive": true,
-      "balance": "$3,611.63",
-      "picture": "http://placehold.it/128x128",
-      "age": 21,
-      "firstName": "Georgia",
-      "lastName": "Woodard",
-      "company": "ISODRIVE",
-      "email": "georgia.woodard@isodrive.ca",
-      "phone": "+7 (927) 577-2408"
-    },
-    {
       "id": 3,
       "isActive": true,
       "balance": "$3,718.07",
@@ -217,18 +205,6 @@
       "phone": "+7 (882) 542-2193"
     },
     {
-      "id": 20,
-      "isActive": true,
-      "balance": "$2,510.18",
-      "picture": "http://placehold.it/128x128",
-      "age": 27,
-      "firstName": "Alvarez",
-      "lastName": "Conway",
-      "company": "ANACHO",
-      "email": "alvarez.conway@anacho.com",
-      "phone": "+7 (903) 482-2635"
-    },
-    {
       "id": 21,
       "isActive": true,
       "balance": "$1,688.88",
@@ -323,18 +299,6 @@
       "company": "VURBO",
       "email": "josephine.moss@vurbo.me",
       "phone": "+7 (900) 527-3413"
-    },
-    {
-      "id": 29,
-      "isActive": true,
-      "balance": "$2,100.64",
-      "picture": "http://placehold.it/128x128",
-      "age": 26,
-      "firstName": "Atkinson",
-      "lastName": "Sharpe",
-      "company": "MAKINGWAY",
-      "email": "atkinson.sharpe@makingway.tv",
-      "phone": "+7 (998) 575-3142"
     }
   ]
 }
