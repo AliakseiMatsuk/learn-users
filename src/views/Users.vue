@@ -1,34 +1,29 @@
 <template lang="pug">
   .p-users
     .container
-      .p-users__table(v-if="GET_USERS.length")
-        t-users(
-        :users="GET_USERS",
-        @delete-user="deleteUser",
-        @edit-user="editUser")
+      .p-users__table(v-if="isUsersLoaded")
+        t-users(:users="GET_USERS")
+      .p-users__loading(v-else) Loading...
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import tUsers from '../components/tables/t-users.vue'
+import tUsers from '@/components/tables/t-users.vue'
 
 export default {
+  name: 'Users',
   components: { tUsers },
-  name: 'users',
+  computed: {
+    ...mapGetters('users', ['GET_USERS']),
+    isUsersLoaded() {
+      return this.GET_USERS.length
+    }
+  },
   created() {
     this.A_GET_USERS()
   },
   methods: {
-    ...mapActions('users', ['A_GET_USERS', 'A_DELETE_USER']),
-    deleteUser(userId) {
-      this.A_DELETE_USER(userId)
-    },
-    editUser(userId) {
-      this.$router.push({ name: 'edit-user', params: { userId } })
-    }
-  },
-  computed: {
-    ...mapGetters('users', ['GET_USERS'])
+    ...mapActions('users', ['A_GET_USERS'])
   }
 }
 </script>

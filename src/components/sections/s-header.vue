@@ -3,29 +3,15 @@
     .container
       nav.navbar.navbar-expand-lg.navbar-light.bg-light
         ul.navbar-nav
-          li.nav-item(
-          v-for="link in nav",
-          :class="{ active: $route.path === link.href }")
-            router-link.nav-link(:to="link.href") {{ link.title }}
+          router-link.nav-item(to="/user-list" tag="li")
+            a.nav-link User list
+          router-link.nav-item(to="/add-user" tag="li")
+            a.nav-link Add user
 </template>
 
 <script>
 export default {
-  name: 'sHeader',
-  data() {
-    return {
-      nav: [
-        {
-          title: 'User list',
-          href: '/user-list'
-        },
-        {
-          title: 'Add user',
-          href: '/add-user'
-        }
-      ]
-    }
-  }
+  name: 'SHeader'
 }
 </script>
 

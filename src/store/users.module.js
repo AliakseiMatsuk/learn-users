@@ -15,22 +15,22 @@ const getters = {
 
 const actions = {
   [A_GET_USERS]({ commit }) {
-    return ApiService.get(API_USERS).then(res => {
+    return ApiService.HTTP.get(API_USERS).then(res => {
       commit(M_SET_USERS, res.data)
     })
   },
   [A_EDIT_USER]({ dispatch }, user) {
-    return ApiService.put(`${API_EDIT_USER}/${user.id}`, user).then(() => {
+    return ApiService.HTTP.put(`${API_EDIT_USER}/${user.id}`, user).then(() => {
       dispatch(A_GET_USERS)
     })
   },
-  [A_DELETE_USER]({ dispatch }, userId) {
-    return ApiService.delete(`${API_DELETE_USER}/${userId}`).then(() => {
+  [A_DELETE_USER]({ dispatch }, id) {
+    return ApiService.HTTP.delete(`${API_DELETE_USER}/${id}`).then(() => {
       dispatch(A_GET_USERS)
     })
   },
   [A_ADD_USER]({ dispatch }, user) {
-    return ApiService.post(API_ADD_USER, user).then(res => {
+    return ApiService.HTTP.post(API_ADD_USER, user).then(res => {
       TokenService.saveToken(res.config.data)
       dispatch(A_GET_USERS)
     })

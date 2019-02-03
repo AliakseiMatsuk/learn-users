@@ -1,5 +1,5 @@
 <template lang="pug">
-  form.f-edit-user
+  form.f-user
     .form-group
       label(for="firstName") First Name
       input#firstName.form-control(v-model.trim="currentUser.firstName")
@@ -11,7 +11,7 @@
       input#company.form-control(v-model.trim="currentUser.company")
     .form-group
       label(for="age") Age
-      input#age.form-control(v-model.trim.number="currentUser.age", type="")
+      input#age.form-control(v-model.trim.number="currentUser.age", type="number")
     .form-group
       label(for="balance") Balance
       input#balance.form-control(v-model.trim="currentUser.balance")
@@ -21,30 +21,61 @@
     .form-group.form-check
       input#isActive.form-check-input(v-model="currentUser.isActive" type="checkbox")
       label.form-check-label(for="isActive") Active
-    button.btn.btn-primary(type="button", @click="editUser") Edit
+    .f-user__actions
+      button.btn.btn-primary(@click="manageUser", type="button") {{ isEditUser ? 'Save' : 'Add' }}
+      button.btn.btn-danger(
+      v-if="isEditUser",
+      @click="deleteUser",
+      type="button") Delete
 </template>
 
 <script>
 export default {
-  name: 'fEditUser',
+  name: 'FUser',
   props: {
     user: {
       type: Object,
-      required: true
+      default: null
     }
   },
   data() {
     return {
-      currentUser: null
+      currentUser: {
+        firstName: '',
+        lastName: '',
+        company: '',
+        age: '',
+        balance: '',
+        phone: '',
+        isActive: false
+      }
+    }
+  },
+  computed: {
+    isEditUser() {
+      return this.user
     }
   },
   created() {
-    this.currentUser = this.user
+    if (this.user) {
+      this.currentUser = { ...this.user }
+    }
   },
   methods: {
-    editUser() {
-      this.$emit('edit-user', this.currentUser)
+    manageUser() {
+      this.$emit('manage-user', { ...this.currentUser })
+    },
+    deleteUser() {
+      this.$emit('delete-user', this.currentUser.id)
     }
   }
 }
 </script>
+
+<style scoped lang="stylus">
+.f-user
+  &__actions
+    .btn
+      &:not(:last-child)
+        margin-right 20px
+</style>

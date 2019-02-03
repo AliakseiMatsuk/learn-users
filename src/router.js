@@ -15,22 +15,18 @@ Vue.use(Router)
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/user-list',
       name: 'user-list',
       component: Users,
-      beforeEnter(to, from, next) {
-        next(!!TokenService.getToken() || { name: 'add-user' })
-      }
+      meta: { requiresAuth: true }
     },
     {
-      path: '/edit-user',
+      path: '/edit-user/:id',
       name: 'edit-user',
-      component: EditUser,
-      beforeEnter(to, from, next) {
-        next('userId' in to.params || { name: 'user-list' })
-      }
+      component: EditUser
     },
     {
       path: '/add-user',
@@ -38,6 +34,14 @@ const router = new Router({
       component: AddUser
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    next(!TokenService.getToken() ? { name: 'add-user' } : true)
+  } else {
+    next()
+  }
 })
 
 router.beforeResolve((to, from, next) => {

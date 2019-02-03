@@ -9,11 +9,10 @@
         th Balance
         th Phone
         th Active
-        th
-        th
     tbody
       tr(v-for="(user,index) in users", :key="user.id")
-        th {{ index + 1 }}
+        th
+          router-link(:to="'/edit-user/' + user.id") # {{ user.id }}
         td {{ user.firstName + ' ' +  user.lastName}}
         td {{ user.company }}
         td {{ user.age }}
@@ -21,15 +20,11 @@
         td {{ user.phone }}
         td
           span.badge(:class="'badge-' + (user.isActive ? 'success' : 'danger')")  &nbsp;&nbsp;&nbsp;&nbsp;
-        td
-          button.btn.btn-primary(@click="$emit('edit-user', user.id)") Edit
-        td
-          button.btn.btn-danger(@click="$emit('delete-user', user.id)") Delete
 </template>
 
 <script>
 export default {
-  name: 'tUsers',
+  name: 'TUsers',
   props: {
     users: {
       type: Array,

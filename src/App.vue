@@ -8,7 +8,7 @@
 import sHeader from '@/components/sections/s-header.vue'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     sHeader
   }
